@@ -30,12 +30,7 @@ PES-VCS is a local version control system built from scratch in C, modeled after
 - **`object_write`** — Prepends a type header (`"blob <size>\0"`), computes SHA-256 of the full object, deduplicates by checking existence, creates shard directory, writes atomically using temp-file-then-rename, and fsyncs both file and directory.
 - **`object_read`** — Reads the object file, recomputes SHA-256 and verifies against the filename (integrity check), parses the type header, and returns the data portion.
 
-### Screenshot 1A — `./test_objects` output
-![alt text](image.png)
-
-### Screenshot 1B — `find .pes/objects -type f`
-*(Insert screenshot here)*
-![alt text](image-1.png)
+)
 ---
 
 ## Phase 2: Tree Objects
@@ -46,8 +41,7 @@ PES-VCS is a local version control system built from scratch in C, modeled after
 
 - **`tree_from_index`** — Recursively builds a tree hierarchy from the index. Handles nested paths by grouping entries sharing the same directory prefix, recursing for each subdirectory, and writing each level as a tree object to the store.
 
-### Screenshot 2A — `./test_tree` output
-![alt text](image-2.png)
+
 
 ---
 
@@ -61,8 +55,7 @@ PES-VCS is a local version control system built from scratch in C, modeled after
 - **`index_save`** — Sorts entries by path, writes to a temp file, fsyncs, then atomically renames over the old index.
 - **`index_add`** — Reads file contents, writes blob to object store, records metadata (mode, mtime, size) in the index entry.
 
-### Screenshot 3A — `pes init` → `pes add` → `pes status`
-![alt text](image-3.png)
+
 
 ---
 
@@ -74,12 +67,7 @@ PES-VCS is a local version control system built from scratch in C, modeled after
 
 - **`commit_create`** — Builds tree from index via `tree_from_index`, reads current HEAD as parent, fills Commit struct with author/timestamp/message, serializes and writes commit object, then atomically updates the branch ref via `head_update`.
 
-### Screenshot 4 — `./pes log` showing three commits
-*![alt text](image-4.png)
-
-### Final Screenshot — Integration test (`make test-integration`)
-![alt text](image-5.png)
-![alt text](image-6.png)
+ALL THE SCREENSHOTS ARE PRESENT IN THE PDF FILE PRESENT IN THE REPO
 
 ---
 
